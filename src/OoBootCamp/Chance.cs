@@ -10,6 +10,7 @@ namespace OoBootCamp
     public class Chance
     {
         private readonly double _fraction;
+        private static readonly double CertainFraction = 1.0;
 
         public Chance(double likelihoodAsFraction)
         {
@@ -30,6 +31,11 @@ namespace OoBootCamp
         public override int GetHashCode()
         {
             return _fraction.GetHashCode();
+        }
+
+        public Chance Not()
+        {
+            return new Chance(CertainFraction - _fraction);
         }
     }
 }
