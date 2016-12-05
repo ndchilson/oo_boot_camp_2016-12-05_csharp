@@ -3,10 +3,6 @@
  * May be used freely except for training; license required for training.
  */
  using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OoBootCamp
 {
@@ -19,18 +15,12 @@ namespace OoBootCamp
         public Rectangle(double length, double width)
         {
             if (length <= 0.0 || width <= 0.0) throw new ArgumentException("Range error");
-            this._length = length;
-            this._width = width;
+            _length = length;
+            _width = width;
         }
         
-        public double Area()
-        {
-            return _length * _width;
-        }
+        public double Area() => _length * _width;
 
-        public double Perimeter()
-        {
-            return 2*(_length + _width);
-        }
+        public double Perimeter() => 2*(_length + _width);
     }
 }

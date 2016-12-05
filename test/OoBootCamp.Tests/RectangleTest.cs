@@ -2,12 +2,8 @@
  * Copyright (c) 2016 by Fred George
  * May be used freely except for training; license required for training.
  */
- using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
- using NUnit.Framework;
+
+using NUnit.Framework;
 
 namespace OoBootCamp.Tests
 {
