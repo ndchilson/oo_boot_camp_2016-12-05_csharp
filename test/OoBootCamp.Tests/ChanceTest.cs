@@ -41,29 +41,29 @@ namespace OoBootCamp.Tests
         [Test]
         public void Not()
         {
-            Assert.AreEqual(Unlikely, Likely.Not());
-            Assert.AreEqual(Likely, Likely.Not().Not());
-            Assert.AreEqual(Impossible, Certain.Not());
+            Assert.AreEqual(Unlikely, !Likely);
+            Assert.AreEqual(Likely, !!Likely);
+            Assert.AreEqual(Impossible, !Certain);
         }
 
         [Test]
         public void And()
         {
-            Assert.AreEqual(Unlikely, EquallyLikely.And(EquallyLikely));
-            Assert.AreEqual(new Chance(0.1875), Unlikely.And(Likely));
-            Assert.AreEqual(Likely.And(Unlikely), Unlikely.And(Likely));
-            Assert.AreEqual(Likely, Certain.And(Likely));
-            Assert.AreEqual(Impossible, Likely.And(Impossible));
+            Assert.AreEqual(Unlikely, EquallyLikely & EquallyLikely);
+            Assert.AreEqual(new Chance(0.1875), Unlikely & Likely);
+            Assert.AreEqual(Likely & Unlikely, Unlikely & Likely);
+            Assert.AreEqual(Likely, Certain & Likely);
+            Assert.AreEqual(Impossible, Likely & Impossible);
         }
 
         [Test]
         public void Or()
         {
-            Assert.AreEqual(Likely, EquallyLikely.Or(EquallyLikely));
-            Assert.AreEqual(new Chance(0.8125), Unlikely.Or(Likely));
-            Assert.AreEqual(Likely.Or(Unlikely), Unlikely.Or(Likely));
-            Assert.AreEqual(Certain, Certain.Or(Likely));
-            Assert.AreEqual(Likely, Likely.Or(Impossible));
+            Assert.AreEqual(Likely, EquallyLikely | EquallyLikely);
+            Assert.AreEqual(new Chance(0.8125), Unlikely | Likely);
+            Assert.AreEqual(Likely | Unlikely, Unlikely | Likely);
+            Assert.AreEqual(Certain, Certain | Likely);
+            Assert.AreEqual(Likely, Likely | Impossible);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace OoBootCamp
     public class Chance
     {
         private readonly double _fraction;
-        private static readonly double CertainFraction = 1.0;
+        private const double CertainFraction = 1.0;
 
         public Chance(double likelihoodAsFraction)
         {
@@ -24,30 +24,30 @@ namespace OoBootCamp
             return this.Equals(other as Chance);
         }
 
-        private bool Equals(Chance other)
+        private bool Equals(Chance other) => this._fraction == other._fraction;
+
+        public override int GetHashCode() => _fraction.GetHashCode();
+
+        public static Chance operator !(Chance c)
         {
-            return this._fraction == other._fraction;
+            return new Chance(CertainFraction - c._fraction);
         }
 
-        public override int GetHashCode()
+        public Chance Not() => !this;
+
+        public static Chance operator &(Chance left, Chance right)
         {
-            return _fraction.GetHashCode();
+            return new Chance(left._fraction * right._fraction);
         }
 
-        public Chance Not()
-        {
-            return new Chance(CertainFraction - _fraction);
-        }
-
-        public Chance And(Chance other)
-        {
-            return new Chance(this._fraction * other._fraction);
-        }
+        public Chance And(Chance other) => this & other;
 
         // DeMorgan's Law: https://en.wikipedia.org/wiki/De_Morgan's_laws
-        public Chance Or(Chance other)
+        public static Chance operator |(Chance left, Chance right)
         {
-            return this.Not().And(other.Not()).Not();
+            return left.Not().And(right.Not()).Not();
         }
+
+        public Chance Or(Chance other) => this | other;
     }
 }
