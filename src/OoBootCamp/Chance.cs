@@ -37,5 +37,10 @@ namespace OoBootCamp
         {
             return new Chance(CertainFraction - _fraction);
         }
+
+        public Chance And(Chance other)
+        {
+            return new Chance(this._fraction * other._fraction);
+        }
     }
 }
