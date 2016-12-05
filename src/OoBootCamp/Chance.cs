@@ -14,6 +14,7 @@ namespace OoBootCamp
 
         public Chance(double likelihoodAsFraction)
         {
+            if (likelihoodAsFraction < 0.0 || likelihoodAsFraction > 1.0) throw new ArgumentException("Between 0.0 and 1.0");
             _fraction = likelihoodAsFraction;
         }
 

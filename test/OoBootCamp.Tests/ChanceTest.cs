@@ -32,6 +32,13 @@ namespace OoBootCamp.Tests
         }
 
         [Test]
+        public void Validation()
+        {
+            Assert.That(() => new Chance(-0.1), Throws.ArgumentException);
+            Assert.That(() => new Chance(1.1), Throws.ArgumentException);
+        }
+
+        [Test]
         public void Not()
         {
             Assert.AreEqual(Unlikely, Likely.Not());
