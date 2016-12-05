@@ -42,5 +42,11 @@ namespace OoBootCamp
         {
             return new Chance(this._fraction * other._fraction);
         }
+
+        // DeMorgan's Law: https://en.wikipedia.org/wiki/De_Morgan's_laws
+        public Chance Or(Chance other)
+        {
+            return this.Not().And(other.Not()).Not();
+        }
     }
 }
