@@ -20,5 +20,11 @@ namespace OoBootCamp.Tests
         {
             Assert.AreEqual(24, new Rectangle(4, 6).Area());
         }
+
+        [Test]
+        public void Perimeter()
+        {
+            Assert.AreEqual(20, new Rectangle(4, 6).Perimeter());
+        }
     }
 }

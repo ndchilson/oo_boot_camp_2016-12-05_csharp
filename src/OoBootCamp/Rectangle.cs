@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace OoBootCamp
 {
+    // Understands a four-sided polygon with sides at right angles
     public class Rectangle
     {
         private readonly double _length;
@@ -24,6 +25,11 @@ namespace OoBootCamp
         public double Area()
         {
             return _length * _width;
+        }
+
+        public double Perimeter()
+        {
+            return 2*(_length + _width);
         }
     }
 }
