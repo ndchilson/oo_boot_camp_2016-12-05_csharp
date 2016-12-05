@@ -26,5 +26,12 @@ namespace OoBootCamp.Tests
         {
             Assert.AreEqual(20, new Rectangle(4, 6).Perimeter());
         }
+
+        [Test]
+        public void InvalidRectangles()
+        {
+            Assert.That(() => new Rectangle(0, 1), Throws.ArgumentException);
+            Assert.That(() => new Rectangle(1, 0), Throws.ArgumentException);
+        }
     }
 }

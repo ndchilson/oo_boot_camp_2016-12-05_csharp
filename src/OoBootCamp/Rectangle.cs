@@ -18,6 +18,7 @@ namespace OoBootCamp
 
         public Rectangle(double length, double width)
         {
+            if (length <= 0.0 || width <= 0.0) throw new ArgumentException("Range error");
             this._length = length;
             this._width = width;
         }
