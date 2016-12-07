@@ -37,5 +37,13 @@ namespace OoBootCamp.Tests.Quantities
             Assert.AreEqual(Tablespoon.s(2).GetHashCode(), Tablespoon.s(2).GetHashCode());
             Assert.AreEqual(Ounce.s(16).GetHashCode(), Quart.s(0.5).GetHashCode());
         }
+
+        [Test]
+        public void Arithmetic()
+        {
+            Assert.AreEqual(-Ounce.s(4), -(Pint.s(0.25)));
+            Assert.AreEqual(Cup.s(1), Ounce.s(4) + Pint.s(0.25));
+            Assert.AreEqual(Pint.s(-0.25), Quart.s(0.25) - Ounce.s(12));
+        }
     }
 }

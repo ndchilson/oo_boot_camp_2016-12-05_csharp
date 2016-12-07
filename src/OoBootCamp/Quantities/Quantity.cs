@@ -3,6 +3,7 @@
  * May be used freely except for training; license required for training.
  */
 using System;
+using System.Runtime.CompilerServices;
 
 namespace OoBootCamp.Quantities
 {
@@ -39,6 +40,21 @@ namespace OoBootCamp.Quantities
         private double ConvertedAmount(Quantity other)
         {
             return this._unit.ConvertedAmount(other._amount, other._unit);
+        }
+
+        public static Quantity operator -(Quantity q)
+        {
+            return new Quantity(-q._amount, q._unit);
+        }
+
+        public static Quantity operator +(Quantity left, Quantity right)
+        {
+            return new Quantity(left._amount + left.ConvertedAmount(right), left._unit);
+        }
+
+        public static Quantity operator -(Quantity left, Quantity right)
+        {
+            return left + -right;
         }
     }
 }
