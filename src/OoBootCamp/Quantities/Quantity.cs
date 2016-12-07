@@ -6,22 +6,15 @@ using System;
 
 namespace OoBootCamp.Quantities
 {
+    // Understands a specific measurement
     public class Quantity
     {
-        public static readonly object Teaspoon = new object();
-        public static readonly object Tablespoon = new object();
-        public static readonly object Ounce = new object();
-        public static readonly object Cup = new object();
-        public static readonly object Pint = new object();
-        public static readonly object Quart = new object();
-        public static readonly object Gallon = new object();
-
         private readonly double _amount;
-        private readonly object _unit;
+        private readonly Unit _unit;
 
         private const double Tolerance = 0.000001;
 
-        public Quantity(double amount, object unit)
+        public Quantity(double amount, Unit unit)
         {
             _amount = amount;
             _unit = unit;
@@ -35,13 +28,17 @@ namespace OoBootCamp.Quantities
 
         private bool Equals(Quantity other)
         {
-            return this._unit == other._unit && 
-                Math.Abs(this._amount - other._amount) < Tolerance;
+            return Math.Abs(this._amount - ConvertedAmount(other)) < Tolerance;
         }
 
         public override int GetHashCode()
         {
             return _unit.GetHashCode() * 17 + _amount.GetHashCode();
+        }
+
+        private double ConvertedAmount(Quantity other)
+        {
+            return this._unit.ConvertedAmount(other._amount, other._unit);
         }
     }
 }

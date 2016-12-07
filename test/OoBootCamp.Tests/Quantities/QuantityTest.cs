@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 using OoBootCamp.Quantities;
-using static OoBootCamp.Quantities.Quantity;
+using static OoBootCamp.Quantities.Unit;
 
 namespace OoBootCamp.Tests.Quantities
 {
@@ -26,6 +26,9 @@ namespace OoBootCamp.Tests.Quantities
         public void EqualityOfDifferentUnit()
         {
             Assert.AreNotEqual(new Quantity(4, Cup), new Quantity(4, Gallon));
+            Assert.AreEqual(new Quantity(3, Teaspoon), new Quantity(1, Tablespoon));
+            Assert.AreEqual(new Quantity(16, Ounce), new Quantity(0.5, Quart));
+            Assert.AreEqual(new Quantity(3, Gallon), new Quantity(768, Tablespoon));
         }
 
         [Test]
