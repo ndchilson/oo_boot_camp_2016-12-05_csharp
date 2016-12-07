@@ -19,8 +19,14 @@ namespace OoBootCamp
             _width = width;
         }
         
-        public double Area() => _length * _width;
+        public double Area()
+        {
+            return this._length*this._width;
+        }
 
-        public double Perimeter() => 2*(_length + _width);
+        public double Perimeter()
+        {
+            return 2*(this._length + this._width);
+        }
     }
 }

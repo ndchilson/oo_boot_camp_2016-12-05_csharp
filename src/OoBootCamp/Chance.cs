@@ -25,23 +25,35 @@ namespace OoBootCamp
             return this.Equals(other as Chance);
         }
 
-        private bool Equals(Chance other) => Math.Abs(this._fraction - other._fraction) < Tolerance;
+        private bool Equals(Chance other)
+        {
+            return Math.Abs(this._fraction - other._fraction) < Tolerance;
+        }
 
-        public override int GetHashCode() => _fraction.GetHashCode();
+        public override int GetHashCode()
+        {
+            return this._fraction.GetHashCode();
+        }
 
         public static Chance operator !(Chance c)
         {
             return new Chance(CertainFraction - c._fraction);
         }
 
-        public Chance Not() => !this;
+        public Chance Not()
+        {
+            return !this;
+        }
 
         public static Chance operator &(Chance left, Chance right)
         {
             return new Chance(left._fraction * right._fraction);
         }
 
-        public Chance And(Chance other) => this & other;
+        public Chance And(Chance other)
+        {
+            return this & other;
+        }
 
         // DeMorgan's Law: https://en.wikipedia.org/wiki/De_Morgan's_laws
         public static Chance operator |(Chance left, Chance right)
@@ -49,6 +61,9 @@ namespace OoBootCamp
             return !(!left & !right);
         }
 
-        public Chance Or(Chance other) => this | other;
+        public Chance Or(Chance other)
+        {
+            return this | other;
+        }
     }
 }
