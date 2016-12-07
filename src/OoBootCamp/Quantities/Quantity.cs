@@ -14,7 +14,7 @@ namespace OoBootCamp.Quantities
 
         private const double Tolerance = 0.000001;
 
-        public Quantity(double amount, Unit unit)
+        protected internal Quantity(double amount, Unit unit)
         {
             _amount = amount;
             _unit = unit;

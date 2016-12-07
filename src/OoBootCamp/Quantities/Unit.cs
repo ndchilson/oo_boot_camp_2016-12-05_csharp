@@ -32,5 +32,10 @@ namespace OoBootCamp.Quantities
         {
             return fromAmount * other._baseUnitRatio / this._baseUnitRatio;
         }
+
+        public Quantity s(double amount)
+        {
+            return new Quantity(amount, this);
+        }
     }
 }

@@ -16,25 +16,25 @@ namespace OoBootCamp.Tests.Quantities
         [Test]
         public void EqualityOfSameUnit()
         {
-            Assert.AreEqual(new Quantity(2, Tablespoon), new Quantity(2, Tablespoon));
-            Assert.AreNotEqual(new Quantity(2, Tablespoon), new Quantity(4, Tablespoon));
-            Assert.AreNotEqual(new Quantity(2, Tablespoon), new object());
-            Assert.AreNotEqual(new Quantity(2, Tablespoon), null);
+            Assert.AreEqual(Tablespoon.s(2), Tablespoon.s(2));
+            Assert.AreNotEqual(Tablespoon.s(2), Tablespoon.s(4));
+            Assert.AreNotEqual(Tablespoon.s(2), new object());
+            Assert.AreNotEqual(Tablespoon.s(2), null);
         }
 
         [Test]
         public void EqualityOfDifferentUnit()
         {
-            Assert.AreNotEqual(new Quantity(4, Cup), new Quantity(4, Gallon));
-            Assert.AreEqual(new Quantity(3, Teaspoon), new Quantity(1, Tablespoon));
-            Assert.AreEqual(new Quantity(16, Ounce), new Quantity(0.5, Quart));
-            Assert.AreEqual(new Quantity(3, Gallon), new Quantity(768, Tablespoon));
+            Assert.AreNotEqual(Cup.s(4), Gallon.s(4));
+            Assert.AreEqual(Teaspoon.s(3), Tablespoon.s(1));
+            Assert.AreEqual(Ounce.s(16), Quart.s(0.5));
+            Assert.AreEqual(Gallon.s(3), Teaspoon.s(2304));
         }
 
         [Test]
         public void Hash()
         {
-            Assert.AreEqual(new Quantity(2, Tablespoon).GetHashCode(), new Quantity(2, Tablespoon).GetHashCode());
+            Assert.AreEqual(Tablespoon.s(2).GetHashCode(), Tablespoon.s(2).GetHashCode());
         }
     }
 }
