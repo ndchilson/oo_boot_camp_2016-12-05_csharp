@@ -11,6 +11,7 @@ namespace OoBootCamp
     {
         private readonly double _fraction;
         private const double CertainFraction = 1.0;
+        private const double Tolerance = 0.0000001;
 
         public Chance(double likelihoodAsFraction)
         {
@@ -24,7 +25,7 @@ namespace OoBootCamp
             return this.Equals(other as Chance);
         }
 
-        private bool Equals(Chance other) => this._fraction == other._fraction;
+        private bool Equals(Chance other) => Math.Abs(this._fraction - other._fraction) < Tolerance;
 
         public override int GetHashCode() => _fraction.GetHashCode();
 
@@ -45,7 +46,7 @@ namespace OoBootCamp
         // DeMorgan's Law: https://en.wikipedia.org/wiki/De_Morgan's_laws
         public static Chance operator |(Chance left, Chance right)
         {
-            return left.Not().And(right.Not()).Not();
+            return !(!left & !right);
         }
 
         public Chance Or(Chance other) => this | other;
