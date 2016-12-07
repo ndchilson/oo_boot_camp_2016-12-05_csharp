@@ -21,8 +21,7 @@ namespace OoBootCamp
 
         public override bool Equals(object other)
         {
-            if (!(other is Chance)) return false;
-            return this.Equals(other as Chance);
+            return other is Chance && this.Equals((Chance)other);
         }
 
         private bool Equals(Chance other)
