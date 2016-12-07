@@ -33,7 +33,7 @@ namespace OoBootCamp.Quantities
 
         public override int GetHashCode()
         {
-            return _unit.GetHashCode() * 17 + _amount.GetHashCode();
+            return _unit.Hash(_amount);
         }
 
         private double ConvertedAmount(Quantity other)

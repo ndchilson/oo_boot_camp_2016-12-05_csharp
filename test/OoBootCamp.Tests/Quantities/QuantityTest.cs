@@ -35,6 +35,7 @@ namespace OoBootCamp.Tests.Quantities
         public void Hash()
         {
             Assert.AreEqual(Tablespoon.s(2).GetHashCode(), Tablespoon.s(2).GetHashCode());
+            Assert.AreEqual(Ounce.s(16).GetHashCode(), Quart.s(0.5).GetHashCode());
         }
     }
 }
