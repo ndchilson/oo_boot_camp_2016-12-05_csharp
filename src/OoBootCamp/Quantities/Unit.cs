@@ -24,25 +24,35 @@ namespace OoBootCamp.Quantities
         public static readonly Unit Furlong = new Unit(220, Yard);
         public static readonly Unit Mile = new Unit(8, Furlong);
 
+        public static readonly Unit Celsius = new Unit();
+        public static readonly Unit Fahrenheit = new Unit(5/9.0, 32, Celsius);
+
         private readonly Unit _baseUnit;
         private readonly double _baseUnitRatio;
+        private readonly double _offset;
 
         private Unit()
         {
             _baseUnit = this;
             _baseUnitRatio = 1.0;
+            _offset = 0.0;
         }
 
-        private Unit(double relativeRatio, Unit relativeUnit)
+        private Unit(double relativeRatio, Unit relativeUnit) : this(relativeRatio, 0.0, relativeUnit)
+        {
+        }
+
+        private Unit(double relativeRatio, double offset, Unit relativeUnit)
         {
             _baseUnit = relativeUnit._baseUnit;
-            _baseUnitRatio = relativeUnit._baseUnitRatio*relativeRatio;
+            _baseUnitRatio = relativeUnit._baseUnitRatio * relativeRatio;
+            _offset = offset;
         }
 
         protected internal double ConvertedAmount(double fromAmount, Unit other)
         {
             if (!this.IsCompatible(other)) throw new ArgumentException("Mixed unit arithmetic error");
-            return fromAmount * other._baseUnitRatio / this._baseUnitRatio;
+            return (fromAmount - other._offset) * other._baseUnitRatio / this._baseUnitRatio + this._offset;
         }
 
         protected internal int Hash(double amount)
