@@ -2,8 +2,7 @@
  * Copyright (c) 2016 by Fred George
  * May be used freely except for training; license required for training.
  */
-
-using System.Data;
+ 
 using NUnit.Framework;
 using static OoBootCamp.Quantities.Unit;
 
@@ -16,44 +15,44 @@ namespace OoBootCamp.Tests.Quantities
         [Test]
         public void EqualityOfSameUnit()
         {
-            Assert.AreEqual(Tablespoon.s(2), Tablespoon.s(2));
-            Assert.AreNotEqual(Tablespoon.s(2), Tablespoon.s(4));
-            Assert.AreNotEqual(Tablespoon.s(2), new object());
-            Assert.AreNotEqual(Tablespoon.s(2), null);
+            Assert.AreEqual(Tablespoon.S(2), Tablespoon.S(2));
+            Assert.AreNotEqual(Tablespoon.S(2), Tablespoon.S(4));
+            Assert.AreNotEqual(Tablespoon.S(2), new object());
+            Assert.AreNotEqual(Tablespoon.S(2), null);
         }
 
         [Test]
         public void EqualityOfDifferentUnit()
         {
-            Assert.AreNotEqual(Cup.s(4), Gallon.s(4));
-            Assert.AreEqual(Teaspoon.s(3), Tablespoon.s(1));
-            Assert.AreEqual(Ounce.s(16), Quart.s(0.5));
-            Assert.AreEqual(Gallon.s(3), Teaspoon.s(2304));
-            Assert.AreEqual(Foot.s(4.5), Yard.s(1.5));
-            Assert.AreEqual(Mile.s(2), Inch.es(126720));
-            Assert.AreNotEqual(Inch.es(1), Teaspoon.s(1));
+            Assert.AreNotEqual(Cup.S(4), Gallon.S(4));
+            Assert.AreEqual(Teaspoon.S(3), Tablespoon.S(1));
+            Assert.AreEqual(Ounce.S(16), Quart.S(0.5));
+            Assert.AreEqual(Gallon.S(3), Teaspoon.S(2304));
+            Assert.AreEqual(Foot.S(4.5), Yard.S(1.5));
+            Assert.AreEqual(Mile.S(2), Inch.Es(126720));
+            Assert.AreNotEqual(Inch.Es(1), Teaspoon.S(1));
         }
 
         [Test]
         public void Hash()
         {
-            Assert.AreEqual(Tablespoon.s(2).GetHashCode(), Tablespoon.s(2).GetHashCode());
-            Assert.AreEqual(Ounce.s(16).GetHashCode(), Quart.s(0.5).GetHashCode());
+            Assert.AreEqual(Tablespoon.S(2).GetHashCode(), Tablespoon.S(2).GetHashCode());
+            Assert.AreEqual(Ounce.S(16).GetHashCode(), Quart.S(0.5).GetHashCode());
         }
 
         [Test]
         public void Arithmetic()
         {
-            Assert.AreEqual(-Ounce.s(4), -(Pint.s(0.25)));
-            Assert.AreEqual(Cup.s(1), Ounce.s(4) + Pint.s(0.25));
-            Assert.AreEqual(Pint.s(-0.25), Quart.s(0.25) - Ounce.s(12));
-            Assert.AreEqual(-Foot.s(3), Inch.es(36) - Yard.s(2));
+            Assert.AreEqual(-Ounce.S(4), -(Pint.S(0.25)));
+            Assert.AreEqual(Cup.S(1), Ounce.S(4) + Pint.S(0.25));
+            Assert.AreEqual(Pint.S(-0.25), Quart.S(0.25) - Ounce.S(12));
+            Assert.AreEqual(-Foot.S(3), Inch.Es(36) - Yard.S(2));
         }
 
         [Test]
         public void InvalidArithmetic()
         {
-            Assert.That(delegate { return Foot.s(3) - Ounce.s(4); }, Throws.ArgumentException);
+            Assert.That(delegate { return Foot.S(3) - Ounce.S(4); }, Throws.ArgumentException);
         }
     }
 }

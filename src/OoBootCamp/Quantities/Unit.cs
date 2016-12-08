@@ -50,14 +50,14 @@ namespace OoBootCamp.Quantities
             return (amount*_baseUnitRatio).GetHashCode();
         }
 
-        public Quantity s(double amount)
+        public Quantity S(double amount)
         {
             return new Quantity(amount, this);
         }
 
-        public Quantity es(double amount)
+        public Quantity Es(double amount)
         {
-            return this.s(amount);
+            return this.S(amount);
         }
 
         public bool IsCompatible(Unit other)

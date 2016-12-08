@@ -3,7 +3,6 @@
  * May be used freely except for training; license required for training.
  */
 using System;
-using System.Runtime.CompilerServices;
 
 namespace OoBootCamp.Quantities
 {
