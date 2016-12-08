@@ -31,6 +31,7 @@ namespace OoBootCamp.Tests.Quantities
             Assert.AreEqual(Foot.S(4.5), Yard.S(1.5));
             Assert.AreEqual(Mile.S(2), Inch.Es(126720));
             Assert.AreNotEqual(Inch.Es(1), Teaspoon.S(1));
+            Assert.AreNotEqual(Inch.Es(1), Celsius.S(1));
         }
 
         [Test]
