@@ -29,6 +29,7 @@ namespace OoBootCamp.Quantities
 
         private bool Equals(Quantity other)
         {
+            if (!this._unit.IsCompatible(other._unit)) return false;
             return Math.Abs(this._amount - ConvertedAmount(other)) < Tolerance;
         }
 

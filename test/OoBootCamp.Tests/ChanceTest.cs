@@ -34,8 +34,8 @@ namespace OoBootCamp.Tests
         [Test]
         public void Validation()
         {
-            Assert.That(() => new Chance(-0.1), Throws.ArgumentException);
-            Assert.That(() => new Chance(1.1), Throws.ArgumentException);
+            Assert.That(delegate { return new Chance(-0.1); }, Throws.ArgumentException);
+            Assert.That(delegate { return new Chance(1.1); }, Throws.ArgumentException);
         }
 
         [Test]

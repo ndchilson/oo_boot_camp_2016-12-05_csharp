@@ -26,8 +26,8 @@ namespace OoBootCamp.Tests
         [Test]
         public void InvalidRectangles()
         {
-            Assert.That(() => new Rectangle(0, 1), Throws.ArgumentException);
-            Assert.That(() => new Rectangle(1, 0), Throws.ArgumentException);
+            Assert.That(delegate { return new Rectangle(0, 1); }, Throws.ArgumentException);
+            Assert.That(delegate { return new Rectangle(1, 0); }, Throws.ArgumentException);
         }
     }
 }
