@@ -4,8 +4,7 @@
  */
  
 using NUnit.Framework;
-using static OoBootCamp.Quantities.IntervalUnit;
-using static OoBootCamp.Quantities.RatioUnit;
+using static OoBootCamp.Quantities.Unit;
 
 namespace OoBootCamp.Tests.Quantities
 {
