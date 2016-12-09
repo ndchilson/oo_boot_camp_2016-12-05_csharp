@@ -68,6 +68,9 @@ namespace OoBootCamp.Tests.Quantities
         public void InvalidArithmetic()
         {
             Assert.That(delegate { return Foot.S(3) - Ounce.S(4); }, Throws.ArgumentException);
+            // The following should not compile:
+            //var total = Celsius.S(10) + Fahrenheit.S(50);
+            //var total = Inch.Es(10) + Fahrenheit.S(50);
         }
     }
 }
