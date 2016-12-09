@@ -7,14 +7,14 @@ using System;
 namespace OoBootCamp.Quantities
 {
     // Understands a specific measurement
-    public class Quantity
+    public class IntervalQuantity
     {
         private readonly double _amount;
         private readonly Unit _unit;
 
         private const double Tolerance = 0.000001;
 
-        protected internal Quantity(double amount, Unit unit)
+        protected internal IntervalQuantity(double amount, Unit unit)
         {
             _amount = amount;
             _unit = unit;
@@ -22,11 +22,11 @@ namespace OoBootCamp.Quantities
 
         public override bool Equals(object other)
         {
-            if (!(other is Quantity)) return false;
-            return this.Equals(other as Quantity);
+            if (!(other is IntervalQuantity)) return false;
+            return this.Equals(other as IntervalQuantity);
         }
 
-        private bool Equals(Quantity other)
+        private bool Equals(IntervalQuantity other)
         {
             if (!this._unit.IsCompatible(other._unit)) return false;
             return Math.Abs(this._amount - ConvertedAmount(other)) < Tolerance;
@@ -37,24 +37,9 @@ namespace OoBootCamp.Quantities
             return _unit.Hash(_amount);
         }
 
-        private double ConvertedAmount(Quantity other)
+        private double ConvertedAmount(IntervalQuantity other)
         {
             return this._unit.ConvertedAmount(other._amount, other._unit);
-        }
-
-        public static Quantity operator -(Quantity q)
-        {
-            return new Quantity(-q._amount, q._unit);
-        }
-
-        public static Quantity operator +(Quantity left, Quantity right)
-        {
-            return new Quantity(left._amount + left.ConvertedAmount(right), left._unit);
-        }
-
-        public static Quantity operator -(Quantity left, Quantity right)
-        {
-            return left + -right;
         }
     }
 }

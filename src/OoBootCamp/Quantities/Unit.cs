@@ -10,39 +10,18 @@ namespace OoBootCamp.Quantities
     // Understands a specific metric
     public class Unit
     {
-        public static readonly Unit Teaspoon = new Unit();
-        public static readonly Unit Tablespoon = new Unit(3, Teaspoon);
-        public static readonly Unit Ounce = new Unit(2, Tablespoon);
-        public static readonly Unit Cup = new Unit(8, Ounce);
-        public static readonly Unit Pint = new Unit(2, Cup);
-        public static readonly Unit Quart = new Unit(2, Pint);
-        public static readonly Unit Gallon = new Unit(4, Quart);
-
-        public static readonly Unit Inch = new Unit();
-        public static readonly Unit Foot = new Unit(12, Inch);
-        public static readonly Unit Yard = new Unit(3, Foot);
-        public static readonly Unit Furlong = new Unit(220, Yard);
-        public static readonly Unit Mile = new Unit(8, Furlong);
-
-        public static readonly Unit Celsius = new Unit();
-        public static readonly Unit Fahrenheit = new Unit(5/9.0, 32, Celsius);
-
         private readonly Unit _baseUnit;
         private readonly double _baseUnitRatio;
         private readonly double _offset;
 
-        private Unit()
+        protected internal Unit()
         {
             _baseUnit = this;
             _baseUnitRatio = 1.0;
             _offset = 0.0;
         }
 
-        private Unit(double relativeRatio, Unit relativeUnit) : this(relativeRatio, 0.0, relativeUnit)
-        {
-        }
-
-        private Unit(double relativeRatio, double offset, Unit relativeUnit)
+        protected internal Unit(double relativeRatio, double offset, Unit relativeUnit)
         {
             _baseUnit = relativeUnit._baseUnit;
             _baseUnitRatio = relativeUnit._baseUnitRatio * relativeRatio;
@@ -60,19 +39,69 @@ namespace OoBootCamp.Quantities
             return (amount*_baseUnitRatio).GetHashCode();
         }
 
-        public Quantity S(double amount)
-        {
-            return new Quantity(amount, this);
-        }
-
-        public Quantity Es(double amount)
-        {
-            return this.S(amount);
-        }
-
         public bool IsCompatible(Unit other)
         {
             return this._baseUnit == other._baseUnit;
+        }
+    }
+
+    public class IntervalUnit : Unit
+    {
+        public static readonly IntervalUnit Celsius = new IntervalUnit();
+        public static readonly IntervalUnit Fahrenheit = new IntervalUnit(5 / 9.0, 32, Celsius);
+
+        private IntervalUnit() : base()
+        {
+        }
+
+        private IntervalUnit(double relativeRatio, double offset, Unit relativeUnit) : base(relativeRatio, offset, relativeUnit)
+        {
+        }
+
+        public IntervalQuantity S(double amount)
+        {
+            return new IntervalQuantity(amount, this);
+        }
+
+        public IntervalQuantity Es(double amount)
+        {
+            return this.S(amount);
+        }
+    }
+
+    public class RatioUnit : Unit
+    {
+
+        public static readonly RatioUnit Teaspoon = new RatioUnit();
+        public static readonly RatioUnit Tablespoon = new RatioUnit(3, Teaspoon);
+        public static readonly RatioUnit Ounce = new RatioUnit(2, Tablespoon);
+        public static readonly RatioUnit Cup = new RatioUnit(8, Ounce);
+        public static readonly RatioUnit Pint = new RatioUnit(2, Cup);
+        public static readonly RatioUnit Quart = new RatioUnit(2, Pint);
+        public static readonly RatioUnit Gallon = new RatioUnit(4, Quart);
+
+        public static readonly RatioUnit Inch = new RatioUnit();
+        public static readonly RatioUnit Foot = new RatioUnit(12, Inch);
+        public static readonly RatioUnit Yard = new RatioUnit(3, Foot);
+        public static readonly RatioUnit Furlong = new RatioUnit(220, Yard);
+        public static readonly RatioUnit Mile = new RatioUnit(8, Furlong);
+
+        private RatioUnit() : base()
+        {
+        }
+
+        private RatioUnit(double relativeRatio, Unit relativeUnit) : base(relativeRatio, 0.0, relativeUnit)
+        {
+        }
+
+        public RatioQuantity S(double amount)
+        {
+            return new RatioQuantity(amount, this);
+        }
+
+        public RatioQuantity Es(double amount)
+        {
+            return this.S(amount);
         }
     }
 }
