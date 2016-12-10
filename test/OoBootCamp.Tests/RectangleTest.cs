@@ -15,12 +15,14 @@ namespace OoBootCamp.Tests
         public void Area()
         {
             Assert.AreEqual(24, new Rectangle(4, 6).Area());
+            Assert.AreEqual(25, Rectangle.Square(5).Area());
         }
 
         [Test]
         public void Perimeter()
         {
             Assert.AreEqual(20, new Rectangle(4, 6).Perimeter());
+            Assert.AreEqual(20, Rectangle.Square(5).Perimeter());
         }
 
         [Test]

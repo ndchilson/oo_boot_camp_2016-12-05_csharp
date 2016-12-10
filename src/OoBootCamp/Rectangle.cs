@@ -18,7 +18,12 @@ namespace OoBootCamp
             _length = length;
             _width = width;
         }
-        
+
+        public static Rectangle Square(double side)
+        {
+            return new Rectangle(side, side);
+        }
+
         public double Area()
         {
             return this._length*this._width;
