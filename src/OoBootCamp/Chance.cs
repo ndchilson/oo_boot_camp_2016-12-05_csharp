@@ -7,7 +7,7 @@ using System;
 namespace OoBootCamp
 {
     // Understands the likelihood of something occuring
-    public class Chance
+    public class Chance : Sequenceable<Chance>
     {
         private readonly double _fraction;
         private const double CertainFraction = 1.0;
@@ -17,6 +17,11 @@ namespace OoBootCamp
         {
             if (likelihoodAsFraction < 0.0 || likelihoodAsFraction > 1.0) throw new ArgumentException("Between 0.0 and 1.0");
             _fraction = likelihoodAsFraction;
+        }
+
+        public bool IsBetterThan(Chance other)
+        {
+            return this._fraction > other._fraction;
         }
 
         public override bool Equals(object other)

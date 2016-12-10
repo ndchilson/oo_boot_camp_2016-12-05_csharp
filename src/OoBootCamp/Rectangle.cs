@@ -7,7 +7,7 @@
 namespace OoBootCamp
 {
     // Understands a four-sided polygon with sides at right angles
-    public class Rectangle
+    public class Rectangle : Sequenceable<Rectangle>
     {
         private readonly double _length;
         private readonly double _width;
@@ -32,6 +32,11 @@ namespace OoBootCamp
         public double Perimeter()
         {
             return 2*(this._length + this._width);
+        }
+
+        public bool IsBetterThan(Rectangle other)
+        {
+            return this.Area() > other.Area();
         }
     }
 }

@@ -6,7 +6,7 @@
 namespace OoBootCamp.Quantities
 {
     // Understands a specific measurement of a Ratio metric
-    public class RatioQuantity : IntervalQuantity
+    public class RatioQuantity : IntervalQuantity, Sequenceable<RatioQuantity>
     {
 
         protected internal RatioQuantity(double amount, Unit unit) : base(amount, unit)
@@ -25,6 +25,11 @@ namespace OoBootCamp.Quantities
         public static RatioQuantity operator -(RatioQuantity left, RatioQuantity right)
         {
             return left + -right;
+        }
+
+        public bool IsBetterThan(RatioQuantity other)
+        {
+            return this.Amount > ConvertedAmount(other);
         }
     }
 }
