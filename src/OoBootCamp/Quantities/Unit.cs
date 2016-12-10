@@ -67,7 +67,8 @@ namespace OoBootCamp.Quantities
             {
             }
 
-            internal IntervalUnit(double relativeRatio, double offset, Unit relativeUnit) : base(relativeRatio, offset, relativeUnit)
+            internal IntervalUnit(double relativeRatio, double offset, Unit relativeUnit) 
+                : base(relativeRatio, offset, relativeUnit)
             {
             }
 
@@ -89,7 +90,8 @@ namespace OoBootCamp.Quantities
             {
             }
 
-            internal RatioUnit(double relativeRatio, Unit relativeUnit) : base(relativeRatio, 0.0, relativeUnit)
+            internal RatioUnit(double relativeRatio, Unit relativeUnit) 
+                : base(relativeRatio, 0.0, relativeUnit)
             {
             }
 

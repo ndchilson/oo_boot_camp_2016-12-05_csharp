@@ -6,18 +6,18 @@ using System;
 
 namespace OoBootCamp.Quantities
 {
-    // Understands a specific measurement
+    // Understands a specific measurement of an Interval metric
     public class IntervalQuantity
     {
-        private readonly double _amount;
-        private readonly Unit _unit;
+        protected internal readonly double Amount;
+        protected internal readonly Unit Unit;
 
         private const double Tolerance = 0.000001;
 
         protected internal IntervalQuantity(double amount, Unit unit)
         {
-            _amount = amount;
-            _unit = unit;
+            Amount = amount;
+            Unit = unit;
         }
 
         public override bool Equals(object other)
@@ -28,18 +28,18 @@ namespace OoBootCamp.Quantities
 
         private bool Equals(IntervalQuantity other)
         {
-            if (!this._unit.IsCompatible(other._unit)) return false;
-            return Math.Abs(this._amount - ConvertedAmount(other)) < Tolerance;
+            if (!this.Unit.IsCompatible(other.Unit)) return false;
+            return Math.Abs(this.Amount - ConvertedAmount(other)) < Tolerance;
         }
 
         public override int GetHashCode()
         {
-            return _unit.Hash(_amount);
+            return Unit.Hash(this.Amount);
         }
 
-        private double ConvertedAmount(IntervalQuantity other)
+        protected internal double ConvertedAmount(IntervalQuantity other)
         {
-            return this._unit.ConvertedAmount(other._amount, other._unit);
+            return this.Unit.ConvertedAmount(other.Amount, other.Unit);
         }
     }
 }
