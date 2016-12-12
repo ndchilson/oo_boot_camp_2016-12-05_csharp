@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace OoBootCamp.Graph
 {
@@ -29,7 +30,7 @@ namespace OoBootCamp.Graph
             if (this == destination) return true;
             if (visitedNodes.Contains(this)) return false;
             visitedNodes.Add(this);
-            return _neighbors.Exists(n => n.CanReach(destination, visitedNodes));
+            return _neighbors.Any(n => n.CanReach(destination, visitedNodes));
         }
 
         private Collection<Node> NoVisitedNodes() => new Collection<Node>();
