@@ -22,7 +22,7 @@ namespace OoBootCamp
     }
 
     // Understands rules to be ordered elements
-    public interface Sequenceable<T>
+    public interface Sequenceable<in T>
     {
         bool IsBetterThan(T other);
     }
