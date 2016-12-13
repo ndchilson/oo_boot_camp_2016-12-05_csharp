@@ -10,6 +10,9 @@ namespace OoBootCamp.Graph
     // Understands a connection to a specific Node
     class Link
     {
+        internal delegate double CostStrategy(double cost);
+        internal static CostStrategy LeastCost = (double cost) => cost;
+
         private readonly Node _target;
         private readonly double _cost;
 
@@ -24,9 +27,9 @@ namespace OoBootCamp.Graph
             return _target.HopCount(destination, visitedNodes) + 1;
         }
 
-        internal double Cost(Node destination, List<Node> visitedNodes)
+        internal double Cost(Node destination, List<Node> visitedNodes, CostStrategy strategy)
         {
-            return _target.Cost(destination, visitedNodes) + _cost;
+            return _target.Cost(destination, visitedNodes, strategy) + strategy(_cost);
         }
     }
 }

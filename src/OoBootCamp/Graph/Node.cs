@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static OoBootCamp.Graph.Link;
 
 namespace OoBootCamp.Graph
 {
@@ -23,7 +24,7 @@ namespace OoBootCamp.Graph
 
         public bool CanReach(Node destination)
         {
-            return HopCount(destination, NoVisitedNodes()) != Unreachable;
+            return Cost(destination, NoVisitedNodes(), LeastCost) != Unreachable;
         }
 
         public int HopCount(Node destination)
@@ -43,29 +44,24 @@ namespace OoBootCamp.Graph
                        .Min();
         }
 
-
-
         public int Cost(Node destination)
         {
-            var result = Cost(destination, NoVisitedNodes());
+            var result = Cost(destination, NoVisitedNodes(), Link.LeastCost);
             if (result == Unreachable) throw new InvalidOperationException("Unreachable destination");
             return (int)result;
         }
 
-        internal double Cost(Node destination, List<Node> visitedNodes)
+        internal double Cost(Node destination, List<Node> visitedNodes, CostStrategy strategy)
         {
             if (this == destination) return 0;
             if (visitedNodes.Contains(this)) return Unreachable;
             if (this._links.Count == 0) return Unreachable;
             return _links
-                       .ConvertAll(link => link.Cost(destination, CopyWithThis(visitedNodes)))
+                       .ConvertAll(link => link.Cost(destination, CopyWithThis(visitedNodes), strategy))
                        .Min();
         }
 
-        private List<Node> CopyWithThis(List<Node> originals)
-        {
-            return new List<Node>(originals) { this };
-        }
+        private List<Node> CopyWithThis(List<Node> originals) => new List<Node>(originals) { this };
 
         private List<Node> NoVisitedNodes() => new List<Node>();
     }
