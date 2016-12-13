@@ -23,15 +23,7 @@ namespace OoBootCamp.Graph
 
         public bool CanReach(Node destination)
         {
-            return CanReach(destination, NoVisitedNodes());
-        }
-
-        private bool CanReach(Node destination, List<Node> visitedNodes)
-        {
-            if (this == destination) return true;
-            if (visitedNodes.Contains(this)) return false;
-            visitedNodes.Add(this);
-            return _neighbors.Any(n => n.CanReach(destination, visitedNodes));
+            return HopCount(destination, NoVisitedNodes()) != Unreachable;
         }
 
         public int HopCount(Node destination)
