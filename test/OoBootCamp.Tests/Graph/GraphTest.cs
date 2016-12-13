@@ -23,10 +23,10 @@ namespace OoBootCamp.Tests.Graph
                                                      
         static GraphTest()
         {
-            B.To(A);
-            B.To(C).To(D).To(E).To(B).To(F);
-            C.To(D);
-            C.To(E);
+            B.To(A, 7);
+            B.To(C, 5).To(D, 2).To(E, 3).To(B, 4).To(F, 6);
+            C.To(D, 1);
+            C.To(E, 8);
         }
 
         [Test]
@@ -51,6 +51,18 @@ namespace OoBootCamp.Tests.Graph
             Assert.Throws<InvalidOperationException>(delegate { A.HopCount(B); });
             Assert.Throws<InvalidOperationException>(delegate { G.HopCount(B); });
             Assert.Throws<InvalidOperationException>(delegate { B.HopCount(G); });
+        }
+
+        [Test]
+        public void Cost()
+        {
+            Assert.AreEqual(0, A.Cost(A));
+            Assert.AreEqual(7, B.Cost(A));
+            Assert.AreEqual(6, B.Cost(F));
+            Assert.AreEqual(14, C.Cost(F));
+            Assert.Throws<InvalidOperationException>(delegate { A.Cost(B); });
+            Assert.Throws<InvalidOperationException>(delegate { G.Cost(B); });
+            Assert.Throws<InvalidOperationException>(delegate { B.Cost(G); });
         }
     }
 }
