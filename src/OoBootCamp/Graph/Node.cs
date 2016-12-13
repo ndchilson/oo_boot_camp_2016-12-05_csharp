@@ -13,7 +13,7 @@ namespace OoBootCamp.Graph
     public class Node
     {
         private readonly List<Node> _neighbors = new List<Node>();
-        private const int Unreachable = -1;
+        private const double Unreachable = Double.PositiveInfinity;
         
         public Node To(Node neighbor)
         {
@@ -30,25 +30,23 @@ namespace OoBootCamp.Graph
         {
             var result = HopCount(destination, NoVisitedNodes());
             if (result == Unreachable) throw new InvalidOperationException("Unreachable destination");
-            return result;
+            return (int)result;
         }
 
-        private int HopCount(Node destination, List<Node> visitedNodes)
+        private double HopCount(Node destination, List<Node> visitedNodes)
         {
             if (this == destination) return 0;
             if (visitedNodes.Contains(this)) return Unreachable;
             return NeighborsHopCount(destination, visitedNodes);
         }
 
-        private int NeighborsHopCount(Node destination, List<Node> visitedNodes)
+        private double NeighborsHopCount(Node destination, List<Node> visitedNodes)
         {
             var champion = Unreachable;
             foreach (var neighbor in this._neighbors)
             {
-                var challenger = neighbor.HopCount(destination, CopyWithThis(visitedNodes));
-                if (challenger == Unreachable) continue;
-                challenger += 1;
-                if (champion == Unreachable || challenger < champion) champion = challenger;
+                var challenger = neighbor.HopCount(destination, CopyWithThis(visitedNodes)) + 1;
+                if (challenger < champion) champion = challenger;
             }
             return champion;
         }
