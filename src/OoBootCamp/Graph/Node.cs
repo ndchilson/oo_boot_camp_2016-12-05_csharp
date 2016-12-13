@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace OoBootCamp.Graph
@@ -13,9 +12,9 @@ namespace OoBootCamp.Graph
     // Understands its neighbors
     public class Node
     {
-        private List<Node> _neighbors = new List<Node>();
+        private readonly List<Node> _neighbors = new List<Node>();
         private const int Unreachable = -1;
-
+        
         public Node To(Node neighbor)
         {
             _neighbors.Add(neighbor);
@@ -27,7 +26,7 @@ namespace OoBootCamp.Graph
             return CanReach(destination, NoVisitedNodes());
         }
 
-        private bool CanReach(Node destination, Collection<Node> visitedNodes)
+        private bool CanReach(Node destination, List<Node> visitedNodes)
         {
             if (this == destination) return true;
             if (visitedNodes.Contains(this)) return false;
@@ -42,24 +41,31 @@ namespace OoBootCamp.Graph
             return result;
         }
 
-        private int HopCount(Node destination, Collection<Node> visitedNodes)
+        private int HopCount(Node destination, List<Node> visitedNodes)
         {
             if (this == destination) return 0;
             if (visitedNodes.Contains(this)) return Unreachable;
-            visitedNodes.Add(this);
             return NeighborsHopCount(destination, visitedNodes);
         }
 
-        private int NeighborsHopCount(Node destination, Collection<Node> visitedNodes)
+        private int NeighborsHopCount(Node destination, List<Node> visitedNodes)
         {
+            var champion = Unreachable;
             foreach (var neighbor in this._neighbors)
             {
-                var result = neighbor.HopCount(destination, visitedNodes);
-                if (result != Unreachable) return result + 1;
+                var challenger = neighbor.HopCount(destination, CopyWithThis(visitedNodes));
+                if (challenger == Unreachable) continue;
+                challenger += 1;
+                if (champion == Unreachable || challenger < champion) champion = challenger;
             }
-            return Unreachable;
+            return champion;
         }
 
-        private Collection<Node> NoVisitedNodes() => new Collection<Node>();
+        private List<Node> CopyWithThis(List<Node> originals)
+        {
+            return new List<Node>(originals) {this};
+        }
+
+        private List<Node> NoVisitedNodes() => new List<Node>();
     }
 }
