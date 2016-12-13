@@ -14,7 +14,7 @@ namespace OoBootCamp.Graph
     {
         private readonly List<Node> _neighbors = new List<Node>();
         private const double Unreachable = Double.PositiveInfinity;
-        
+
         public Node To(Node neighbor)
         {
             _neighbors.Add(neighbor);
@@ -37,23 +37,15 @@ namespace OoBootCamp.Graph
         {
             if (this == destination) return 0;
             if (visitedNodes.Contains(this)) return Unreachable;
-            return NeighborsHopCount(destination, visitedNodes);
-        }
-
-        private double NeighborsHopCount(Node destination, List<Node> visitedNodes)
-        {
-            var champion = Unreachable;
-            foreach (var neighbor in this._neighbors)
-            {
-                var challenger = neighbor.HopCount(destination, CopyWithThis(visitedNodes)) + 1;
-                if (challenger < champion) champion = challenger;
-            }
-            return champion;
+            if (_neighbors.Count == 0) return Unreachable;
+            return _neighbors
+                       .ConvertAll(n => n.HopCount(destination, CopyWithThis(visitedNodes)))
+                       .Min() + 1;
         }
 
         private List<Node> CopyWithThis(List<Node> originals)
         {
-            return new List<Node>(originals) {this};
+            return new List<Node>(originals) { this };
         }
 
         private List<Node> NoVisitedNodes() => new List<Node>();
