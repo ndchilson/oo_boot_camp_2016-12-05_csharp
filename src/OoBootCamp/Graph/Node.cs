@@ -12,12 +12,12 @@ namespace OoBootCamp.Graph
     // Understands its neighbors
     public class Node
     {
-        private readonly List<Node> _neighbors = new List<Node>();
+        private readonly List<Link> _links = new List<Link>();
         private const double Unreachable = Double.PositiveInfinity;
 
         public Node To(Node neighbor)
         {
-            _neighbors.Add(neighbor);
+            this._links.Add(new Link(neighbor));
             return neighbor;
         }
 
@@ -33,13 +33,13 @@ namespace OoBootCamp.Graph
             return (int)result;
         }
 
-        private double HopCount(Node destination, List<Node> visitedNodes)
+        internal double HopCount(Node destination, List<Node> visitedNodes)
         {
             if (this == destination) return 0;
             if (visitedNodes.Contains(this)) return Unreachable;
-            if (_neighbors.Count == 0) return Unreachable;
-            return _neighbors
-                       .ConvertAll(n => n.HopCount(destination, CopyWithThis(visitedNodes)))
+            if (this._links.Count == 0) return Unreachable;
+            return _links
+                       .ConvertAll(link => link.HopCount(destination, CopyWithThis(visitedNodes)))
                        .Min() + 1;
         }
 
