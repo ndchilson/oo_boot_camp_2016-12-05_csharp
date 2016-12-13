@@ -29,24 +29,17 @@ namespace OoBootCamp.Graph
 
         public int HopCount(Node destination)
         {
-            var result = HopCount(destination, NoVisitedNodes());
-            if (result == Unreachable) throw new InvalidOperationException("Unreachable destination");
-            return (int)result;
-        }
-
-        internal double HopCount(Node destination, List<Node> visitedNodes)
-        {
-            if (this == destination) return 0;
-            if (visitedNodes.Contains(this)) return Unreachable;
-            if (this._links.Count == 0) return Unreachable;
-            return _links
-                       .ConvertAll(link => link.HopCount(destination, CopyWithThis(visitedNodes)))
-                       .Min();
+            return SafeCost(destination, FewestHops);
         }
 
         public int Cost(Node destination)
         {
-            var result = Cost(destination, NoVisitedNodes(), Link.LeastCost);
+            return SafeCost(destination, LeastCost);
+        }
+
+        private int SafeCost(Node destination, CostStrategy strategy)
+        {
+            var result = Cost(destination, NoVisitedNodes(), strategy);
             if (result == Unreachable) throw new InvalidOperationException("Unreachable destination");
             return (int)result;
         }

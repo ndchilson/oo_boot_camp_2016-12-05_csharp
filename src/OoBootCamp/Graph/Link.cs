@@ -12,6 +12,7 @@ namespace OoBootCamp.Graph
     {
         internal delegate double CostStrategy(double cost);
         internal static CostStrategy LeastCost = (double cost) => cost;
+        internal static CostStrategy FewestHops = (double cost) => 1;
 
         private readonly Node _target;
         private readonly double _cost;
@@ -20,11 +21,6 @@ namespace OoBootCamp.Graph
         {
             _target = target;
             _cost = cost;
-        }
-
-        internal double HopCount(Node destination, List<Node> visitedNodes)
-        {
-            return _target.HopCount(destination, visitedNodes) + 1;
         }
 
         internal double Cost(Node destination, List<Node> visitedNodes, CostStrategy strategy)
