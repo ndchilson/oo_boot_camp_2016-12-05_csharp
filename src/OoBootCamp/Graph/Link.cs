@@ -19,7 +19,7 @@ namespace OoBootCamp.Graph
 
         internal double HopCount(Node destination, List<Node> visitedNodes)
         {
-            return _target.HopCount(destination, visitedNodes);
+            return _target.HopCount(destination, visitedNodes) + 1;
         }
     }
 }

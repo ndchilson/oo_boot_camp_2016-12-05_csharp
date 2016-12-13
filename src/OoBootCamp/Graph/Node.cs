@@ -40,7 +40,7 @@ namespace OoBootCamp.Graph
             if (this._links.Count == 0) return Unreachable;
             return _links
                        .ConvertAll(link => link.HopCount(destination, CopyWithThis(visitedNodes)))
-                       .Min() + 1;
+                       .Min();
         }
 
         private List<Node> CopyWithThis(List<Node> originals)
