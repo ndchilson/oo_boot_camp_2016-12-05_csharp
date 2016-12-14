@@ -8,12 +8,44 @@ using System.Collections.Generic;
 
 namespace OoBootCamp.Graph
 {
+    public interface Path : IComparable<Path>
+    {
+        Path Prepend(Link link);
+        int HopCount();
+        double Cost();
+    }
+
+    class NoPath : Path
+    {
+        public int CompareTo(Path other)
+        {
+            return 1;
+        }
+
+        public Path Prepend(Link ignore)
+        {
+            return this;
+        }
+
+        public int HopCount()
+        {
+            return int.MaxValue;
+        }
+
+        public double Cost()
+        {
+            return double.PositiveInfinity;
+        }
+    }
+
     // Understands a specific way from one Node to another Node
-    public class Path : IComparable<Path>
+    class ActualPath : Path
     {
         private readonly List<Link> _links = new List<Link>();
 
-        internal Path PrePend(Link link)
+        internal ActualPath() { }
+
+        public Path Prepend(Link link)
         {
             _links.Insert(0, link);
             return this;

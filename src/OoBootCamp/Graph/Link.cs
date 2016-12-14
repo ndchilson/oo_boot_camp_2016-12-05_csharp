@@ -9,11 +9,11 @@ using System.Linq;
 namespace OoBootCamp.Graph
 {
     // Understands a connection to a specific Node
-    class Link
+    public class Link
     {
         internal delegate double CostStrategy(double cost);
-        internal static CostStrategy LeastCost = (double cost) => cost;
-        internal static CostStrategy FewestHops = (double cost) => 1;
+        internal static CostStrategy LeastCost = cost => cost;
+        internal static CostStrategy FewestHops = cost => 1;
 
         private readonly Node _target;
         private readonly double _cost;
@@ -31,7 +31,7 @@ namespace OoBootCamp.Graph
 
         internal Path Path(Node destination, List<Node> visitedNodes)
         {
-            return this._target.Path(destination, visitedNodes)?.PrePend(this);
+            return this._target.Path(destination, visitedNodes)?.Prepend(this);
         }
 
         public static double TotalCost(List<Link> links)

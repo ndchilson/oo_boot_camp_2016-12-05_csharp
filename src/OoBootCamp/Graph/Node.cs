@@ -57,17 +57,16 @@ namespace OoBootCamp.Graph
         public Path Path(Node destination)
         {
             var result = Path(destination, NoVisitedNodes());
-            if (result == null) throw new InvalidOperationException("Unreachable destination");
+            if (result is NoPath) throw new InvalidOperationException("Unreachable destination");
             return result;
         }
 
         internal Path Path(Node destination, List<Node> visitedNodes)
         {
-            if (this == destination) return new Path();
-            if (visitedNodes.Contains(this)) return null;
+            if (this == destination) return new ActualPath();
+            if (visitedNodes.Contains(this)) return new NoPath();
             var paths = _links.ConvertAll(link => link.Path(destination, CopyWithThis(visitedNodes)));
-            paths.RemoveAll(p => p == null);
-            return (paths.Count == 0) ? null : paths.Min();
+            return (paths.Count == 0) ? new NoPath() : paths.Min();
         }
 
         private List<Node> CopyWithThis(List<Node> originals) => new List<Node>(originals) { this };
