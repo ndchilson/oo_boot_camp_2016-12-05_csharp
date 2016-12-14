@@ -4,6 +4,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OoBootCamp.Graph
 {
@@ -26,6 +27,17 @@ namespace OoBootCamp.Graph
         internal double Cost(Node destination, List<Node> visitedNodes, CostStrategy strategy)
         {
             return _target.Cost(destination, visitedNodes, strategy) + strategy(_cost);
+        }
+
+        internal Path Path(Node destination, List<Node> visitedNodes)
+        {
+            return this._target.Path(destination, visitedNodes)?.PrePend(this);
+        }
+
+        public static double TotalCost(List<Link> links)
+        {
+            if (!links.Any()) return 0.0;
+            return links.ConvertAll(link => link._cost).Sum();
         }
     }
 }

@@ -64,5 +64,24 @@ namespace OoBootCamp.Tests.Graph
             Assert.Throws<InvalidOperationException>(delegate { G.Cost(B); });
             Assert.Throws<InvalidOperationException>(delegate { B.Cost(G); });
         }
+
+        [Test]
+        public void Path()
+        {
+            AssertPath(A, A, 0, 0);
+            AssertPath(B, A, 1, 7);
+            AssertPath(B, F, 1, 6);
+            AssertPath(C, F, 4, 14);
+            Assert.Throws<InvalidOperationException>(delegate { A.Path(B); });
+            Assert.Throws<InvalidOperationException>(delegate { G.Path(B); });
+            Assert.Throws<InvalidOperationException>(delegate { B.Path(G); });
+        }
+
+        private void AssertPath(Node start, Node destination, int expectedHopCount, double expectedCost)
+        {
+            var path = start.Path(destination);
+            Assert.AreEqual(expectedHopCount, path.HopCount());
+            Assert.AreEqual(expectedCost, path.Cost());
+        }
     }
 }

@@ -29,19 +29,19 @@ namespace OoBootCamp.Graph
 
         public int HopCount(Node destination)
         {
-            return SafeCost(destination, FewestHops);
+            return (int)SafeCost(destination, FewestHops);
         }
 
-        public int Cost(Node destination)
-        {
+        public double Cost(Node destination)
+            {
             return SafeCost(destination, LeastCost);
         }
 
-        private int SafeCost(Node destination, CostStrategy strategy)
+        private double SafeCost(Node destination, CostStrategy strategy)
         {
             var result = Cost(destination, NoVisitedNodes(), strategy);
             if (result == Unreachable) throw new InvalidOperationException("Unreachable destination");
-            return (int)result;
+            return result;
         }
 
         internal double Cost(Node destination, List<Node> visitedNodes, CostStrategy strategy)
@@ -52,6 +52,22 @@ namespace OoBootCamp.Graph
             return _links
                        .ConvertAll(link => link.Cost(destination, CopyWithThis(visitedNodes), strategy))
                        .Min();
+        }
+
+        public Path Path(Node destination)
+        {
+            var result = Path(destination, NoVisitedNodes());
+            if (result == null) throw new InvalidOperationException("Unreachable destination");
+            return result;
+        }
+
+        internal Path Path(Node destination, List<Node> visitedNodes)
+        {
+            if (this == destination) return new Path();
+            if (visitedNodes.Contains(this)) return null;
+            var paths = _links.ConvertAll(link => link.Path(destination, CopyWithThis(visitedNodes)));
+            paths.RemoveAll(p => p == null);
+            return (paths.Count == 0) ? null : paths.Min();
         }
 
         private List<Node> CopyWithThis(List<Node> originals) => new List<Node>(originals) { this };
